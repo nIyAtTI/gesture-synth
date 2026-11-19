@@ -1,4 +1,4 @@
-> **Study & Analysis Note:** This is a fork of the original `gesture-synth` repository. I liked this project and put together this theoretical breakdown to explain how it works conceptually—without modifying the original implementation.
+> **Study & Analysis Note:** This is a fork of the original `gesture-synth` repository. I really liked this project since it really resonated my interest of combining real life interest with coding and tech. This theoretical breakdown explains how exactly it works conceptually—without modifying the original implementation.
 
 ## Theoretical Analysis: How `gesture-synth` Works
 
