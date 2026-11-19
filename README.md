@@ -1,3 +1,23 @@
+> **Study & Analysis Note:** This is a fork of the original `gesture-synth` repository. I liked this project and put together this theoretical breakdown to explain how it works conceptually—without modifying the original implementation.
+
+## Theoretical Analysis: How `gesture-synth` Works
+
+At a high level, **Gesture Synth** is a browser-based hand-gesture musical instrument that turns real-time webcam hand tracking into musical chords, notes, and synth controls. Rather than relying on a backend server to process video, the pipeline runs locally in the browser across five stages:
+
+| Stage | What Happens Conceptually | Why It Matters |
+| :--- | :--- | :--- |
+| **1. Video Capture** | The browser requests webcam access (`getUserMedia`) over a secure context (`localhost` or `HTTPS`) and streams frames into the client. | Supplies continuous visual frames without uploading raw video to an external server. |
+| **2. Hand Landmark Tracking** | A computer vision hand-tracking model (such as MediaPipe Hand Landmarker) detects hands in each frame and estimates key anatomical landmarks (joints/fingertips per hand). | Converts raw pixels into structured spatial coordinates that code can measure (finger extension, hand position, tilt/orientation). |
+| **3. Gesture & State Stabilization** | Landmark geometry is interpreted into discrete gestures or continuous control values, often paired with smoothing/hold logic (hysteresis/grace windows). | Prevents jittery landmarks or single-frame tracking glitches from causing accidental note flickers or abrupt dropouts. |
+| **4. Music Mapping** | Detected hand states map to musical parameters—such as scale degrees/chords, voicings/inversions, octave shifts, or continuous pitch/filter/volume controls. | Bridges human hand kinematics with music theory and sound design rules. |
+| **5. Browser Audio Synthesis** | Browser audio APIs/libraries (such as the Web Audio API / Tone.js) generate and shape sound waves—using oscillators, filters, envelopes, and gain smoothing—unlocked after a user click. | Produces responsive, low-latency sound directly in the tab while respecting browser autoplay/audio rules. |
+
+**Pipeline Flow:** `Webcam Frame` -> `Hand Landmarks` -> `Gesture & Smoothing State` -> `Musical Mapping (Chords / Pitch / Expression)`-> `Browser Audio Synthesis`
+
+---
+
+
+
 <p align="center">
   <img src="app/public/icons/icon-192.png" width="96" alt="Gesture Synth icon">
 </p>
